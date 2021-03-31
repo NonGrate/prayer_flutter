@@ -1,0 +1,12 @@
+[
+  {
+    "author_id": "3b6b8e09-74df-4763-94cb-a4d96dace911",
+    "content": "Text 1",
+    "follows": 0
+  },
+  {
+    "author_id": "3b6b8e09-74df-4763-94cb-a4d96dace911",
+    "content": "Medium length text",
+    "follows": 10
+  }
+]

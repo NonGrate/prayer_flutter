@@ -1,0 +1,27 @@
+[
+  {
+    "author_id": "3b6b8e09-74df-4763-94cb-a4d96dace911",
+    "content": "Text 1",
+    "follows": 0
+  },
+  {
+    "author_id": "45295ede-f527-4679-89ad-09dd761f8401",
+    "content": "Text 2",
+    "follows": 0
+  },
+  {
+    "author_id": "45295ede-f527-4679-89ad-09dd761f8401",
+    "content": "Very long text that will wrap into more lines",
+    "follows": 15
+  },
+  {
+    "author_id": "3b6b8e09-74df-4763-94cb-a4d96dace911",
+    "content": "Medium length text",
+    "follows": 10
+  },
+  {
+    "author_id": "72b47381-3d54-4fcc-b8d9-29592b3f0a60",
+    "content": "Text 5",
+    "follows": 1
+  }
+]
