@@ -104,16 +104,6 @@ String passwordBasicFieldValidator(BuildContext context, String value) {
   return null;
 }
 
-String codeFieldValidator(BuildContext context, String value, {dynamic result}) {
-  if ((result != null && result.wrongCode)) {
-    return tr('wrong_code'); // 'Kód není správně';
-  } else if (value.isEmpty) {
-    return tr('code_empty'); // 'Vyplňte prosím kód';
-  }
-  return null;
-}
-
-
 /*
 INFO: use in case app allows to change email.
 */
@@ -152,30 +142,6 @@ String currentPasswordFieldValidator(BuildContext context, String value, {dynami
     return tr('enter_password'); // Condition if text field is empty
   } else if (!regex.hasMatch(value)) {
     return tr('wrong_password_format'); // Condition if password does not match "pattern"
-  }
-  return null;
-}
-
-String zipCodeFieldValidator(BuildContext context, String value, int length, {dynamic result}) {
-  Pattern zipCodePattern = r'^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$';
-  RegExp regex = RegExp (zipCodePattern);
-  if (value.isNotEmpty && value.length > length && !regex.hasMatch(value)) {
-    return tr('zip_wrong'); // Condition if password has less than min. required characters;
-  } else if (value.isEmpty) {
-    return tr('enter_zip'); // Condition if text field is empty
-  } 
-  return null;
-}
-
-String stoneCodeFieldValidator(BuildContext context, String value, int length, {dynamic result}) {
-  Pattern errorCode = '6x66666';
-  RegExp regex = RegExp (errorCode);
-  if (value.isNotEmpty && value.length != length) {
-    return tr('wrong_code'); // Condition if password has less than min. required characters;
-  } else if (value.isEmpty) {
-    return tr('enter_code'); // Condition if text field is empty
-  } else if(regex.hasMatch(value)) {
-    return tr('wrong_code');
   }
   return null;
 }

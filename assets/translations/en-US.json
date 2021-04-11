@@ -1,5 +1,6 @@
 {
   "login": "Log in",
+  "register": "Register",
   "email": "Email",
   "password": "Password",
   "app_name": "Prayer",
@@ -7,5 +8,13 @@
 
   "my_own": "My own",
   "selected": "Selected",
-  "feed": "Feed"
+  "feed": "Feed",
+  "no_prayers": "No prayers here",
+
+  "have_an_account": "Already have an account?",
+  "dont_have_an_account": "Don't have an account yet?",
+
+  "create_prayer": "Create a prayer",
+  "what_to_pray_about": "What to pray about?",
+  "select_language": "Language:"
 }

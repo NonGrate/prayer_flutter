@@ -1,5 +1,6 @@
 {
   "login": "Войти",
+  "register": "Регистрация",
   "email": "Email",
   "password": "Пароль",
   "app_name": "Молитва",
@@ -7,5 +8,13 @@
 
   "my_own": "Мои",
   "selected": "Выбранные",
-  "feed": "Все"
+  "feed": "Все",
+  "no_prayers": "Здесь пока нет молитв",
+
+  "have_an_account": "Уже зарегистрированы?",
+  "dont_have_an_account": "Ещё не зарегистрированы?",
+
+  "create_prayer": "Создайте новую молитву",
+  "what_to_pray_about": "В чём нужна молитва?",
+  "select_language": "Язык:"
 }

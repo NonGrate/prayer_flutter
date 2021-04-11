@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:prayer/page/create_screen.dart';
 import 'package:prayer/page/login_screen.dart';
 import 'package:prayer/page/main_screen.dart';
+import 'package:prayer/page/register_screen.dart';
 import 'package:prayer/page/splash_screen.dart';
 
 void main() async {
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => SplashScreen(),
         '/main': (context) => MainPage(),
         '/login': (context) => LoginPage(),
-        // '/create': (context) => CreatePage(),
+        '/register': (context) => RegisterPage(),
+        '/create': (context) => CreatePage(),
         // '/settings': (context) => SettingsPage(),
       },
     );

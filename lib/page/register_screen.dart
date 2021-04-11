@@ -7,12 +7,12 @@ import 'package:prayer/styles/styles.dart';
 import 'package:prayer/widget/form_field.dart';
 import 'package:prayer/widget/main_button.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final Api api = Api();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            tr("login"),
+            tr("register"),
             style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
@@ -68,20 +68,20 @@ class _LoginPageState extends State<LoginPage> {
                   textCapitalization: TextCapitalization.none,
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: autovalidateMode,
-                  isPassword: true,
                   maxLines: 1,
+                  isPassword: true,
                 ),
                 SizedBox(height: 24),
                 ButtonMain(
-                  text: tr("login"),
+                  text: tr("register"),
                   loading: loading,
                   tap: success,
                 ),
                 SizedBox(height: 24),
                 Center(
                   child: InkWell(
-                    child: Text(tr("dont_have_an_account")),
-                    onTap: () => Navigator.of(context).pushReplacementNamed("/register"),
+                    child: Text(tr("have_an_account")),
+                    onTap: () => Navigator.of(context).pushReplacementNamed("/login"),
                   ),
                 ),
               ],

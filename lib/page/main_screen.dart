@@ -27,22 +27,34 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tr("prayers"), style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
+        title: Text(
+          tr("prayers"),
+          style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Icon(Icons.settings, color: Colors.white,),
+            ),
+          )
+        ],
       ),
       body: content(),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
-            label: 'Selected',
+            label: tr('selected'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Feed',
+            label: tr('feed'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
-            label: 'My own',
+            label: tr('my_own'),
           ),
         ],
         currentIndex: selectedIndex,
@@ -50,11 +62,24 @@ class _MainPageState extends State<MainPage> {
         onTap: (value) {
           setState(() {
             selectedIndex = value;
-            selectedUse = value == 0 ? PrayerCardUse.SELECTED : value == 2 ? PrayerCardUse.OWN : PrayerCardUse.FEED;
+            selectedUse = value == 0
+                ? PrayerCardUse.SELECTED
+                : value == 2
+                    ? PrayerCardUse.OWN
+                    : PrayerCardUse.FEED;
           });
           loadData();
         },
       ),
+      floatingActionButton: selectedUse == PrayerCardUse.OWN
+          ? FloatingActionButton(
+              onPressed: () => Navigator.of(context).pushNamed("/create"),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            )
+          : null,
     );
   }
 
@@ -67,7 +92,7 @@ class _MainPageState extends State<MainPage> {
       return Column(
         children: [
           Center(
-            child: Text("No prayers here"),
+            child: Text(tr("no_prayers")),
           ),
         ],
       );

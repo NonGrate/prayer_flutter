@@ -7,20 +7,21 @@ import 'package:prayer/styles/styles.dart';
 import 'package:prayer/widget/form_field.dart';
 import 'package:prayer/widget/main_button.dart';
 
-class LoginPage extends StatefulWidget {
+class CreatePage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _CreatePageState createState() => _CreatePageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CreatePageState extends State<CreatePage> {
   final Api api = Api();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController(text: '');
-  TextEditingController passwordController = TextEditingController(text: '');
+  TextEditingController textController = TextEditingController(text: '');
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   bool loading = false;
+
+  String selectedLanguage = "English";
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            tr("login"),
+            tr("create_prayer"),
             style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
@@ -47,42 +48,45 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  tr("email"),
+                  tr("what_to_pray_about"),
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 4),
                 AppFormField(
-                  controller: emailController,
-                  validator: (value) => emailFieldValidator(context, value),
+                  controller: textController,
+                  validator: (value) => ordinaryFieldValidator(context, value, 1000, true),
                   textCapitalization: TextCapitalization.none,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.multiline,
                   autovalidateMode: autovalidateMode,
-                  maxLines: 1,
+                  maxLines: 5,
                 ),
                 SizedBox(height: 16),
-                Text(tr("password"), style: TextStyle(fontSize: 16)),
-                SizedBox(height: 4),
-                AppFormField(
-                  controller: emailController,
-                  validator: (value) => passwordFieldValidator(context, value),
-                  textCapitalization: TextCapitalization.none,
-                  keyboardType: TextInputType.emailAddress,
-                  autovalidateMode: autovalidateMode,
-                  isPassword: true,
-                  maxLines: 1,
+                Row(
+                  children: [
+                    Text(
+                      tr("select_language"),
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(width: 16),
+                    DropdownButton(
+                      value: selectedLanguage,
+                      items: [
+                        DropdownMenuItem<String>(child: Text("English"), value: "English",),
+                        DropdownMenuItem<String>(child: Text("Русский"), value: "Русский",),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedLanguage = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
                 SizedBox(height: 24),
                 ButtonMain(
-                  text: tr("login"),
+                  text: tr("create_prayer"),
                   loading: loading,
                   tap: success,
-                ),
-                SizedBox(height: 24),
-                Center(
-                  child: InkWell(
-                    child: Text(tr("dont_have_an_account")),
-                    onTap: () => Navigator.of(context).pushReplacementNamed("/register"),
-                  ),
                 ),
               ],
             ),
