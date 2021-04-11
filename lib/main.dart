@@ -4,6 +4,7 @@ import 'package:prayer/page/create_screen.dart';
 import 'package:prayer/page/login_screen.dart';
 import 'package:prayer/page/main_screen.dart';
 import 'package:prayer/page/register_screen.dart';
+import 'package:prayer/page/settings_screen.dart';
 import 'package:prayer/page/splash_screen.dart';
 
 void main() async {
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/create': (context) => CreatePage(),
-        // '/settings': (context) => SettingsPage(),
+        '/settings': (context) => SettingsPage(),
       },
     );
   }

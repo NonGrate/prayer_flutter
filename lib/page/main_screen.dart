@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () => Navigator.of(context).pushNamed("/settings"),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(Icons.settings, color: Colors.white,),

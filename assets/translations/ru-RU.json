@@ -1,5 +1,6 @@
 {
   "login": "Войти",
+  "logout": "Выйти",
   "register": "Регистрация",
   "email": "Email",
   "password": "Пароль",
