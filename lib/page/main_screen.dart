@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
@@ -26,7 +27,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Prayers", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
+        title: Text(tr("prayers"), style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
       ),
       body: content(),
       bottomNavigationBar: BottomNavigationBar(

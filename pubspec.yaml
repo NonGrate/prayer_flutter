@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.2
+  easy_localization: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -48,6 +49,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - api/
+  - assets/translations/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
