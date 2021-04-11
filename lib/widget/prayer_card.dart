@@ -14,28 +14,57 @@ class PrayerCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0, bottom: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(prayer.content, style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
+            Text(prayer.content, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
             SizedBox(height: 8),
             Divider(
               color: Colors.grey,
               height: 2,
             ),
-            SizedBox(height: 8),
             use == PrayerCardUse.OWN
-                ? Text("${prayer.follows} follows you!", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400))
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "${prayer.follows} follows you!",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  )
                 : use == PrayerCardUse.FEED
                     ? Row(
                         children: [
-                          Text("✓ Pray for them", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
+                          InkWell(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "✓ Pray for them",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ),
                           Expanded(child: Container()),
-                          Text("✗ Don't show", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
+                          InkWell(
+                            onTap: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "✗ Don't show",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ),
                         ],
                       )
-                    : Text("${prayer.follows} follows", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "${prayer.follows} follows",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                        ),
+                      ),
           ],
         ),
       ),

@@ -25,6 +25,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Prayers", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
+      ),
       body: content(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -60,27 +63,26 @@ class _MainPageState extends State<MainPage> {
         child: CircularProgressIndicator(),
       );
     } else if (prayers.isEmpty) {
-      return Center(
-        child: Text("No prayers here"),
+      return Column(
+        children: [
+          Center(
+            child: Text("No prayers here"),
+          ),
+        ],
       );
     } else {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 48),
-              Text("Prayers:", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700, color: Colors.white)),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => PrayerCard(prayer: prayers[index], use: selectedUse),
-                separatorBuilder: (context, index) => SizedBox(height: 16),
-                itemCount: prayers.length,
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => PrayerCard(prayer: prayers[index], use: selectedUse),
+              separatorBuilder: (context, index) => SizedBox(height: 16),
+              itemCount: prayers.length,
+            ),
           ),
         ),
       );

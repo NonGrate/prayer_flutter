@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Prayer',
       theme: ThemeData(
         primarySwatch: Colors.orange,
-        scaffoldBackgroundColor: Colors.orange,
+        scaffoldBackgroundColor: Colors.orange[200],
         fontFamily: 'OpenSans',
       ),
       home: MainPage(),
