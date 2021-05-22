@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "104638714460",
+    "firebase_url": "https://prayer-5cde7-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "prayer-5cde7",
+    "storage_bucket": "prayer-5cde7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104638714460:android:25bbcf2131748d1eeb4c99",
+        "android_client_info": {
+          "package_name": "kg.nongrate.prayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104638714460-nu9icql6i8qm3o866qd2drqpk8uvif0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kg.nongrate.prayer",
+            "certificate_hash": "67d24260e9561a6d42b9b2326aef8b5505690847"
+          }
+        },
+        {
+          "client_id": "104638714460-3iosmd3rvuvu8o227unct907n0r9gf3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfBICwGXbTSfYTGO4tebULHcIspiYPvwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104638714460-3iosmd3rvuvu8o227unct907n0r9gf3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

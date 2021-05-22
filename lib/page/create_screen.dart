@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
+import 'package:prayer/logic/extensions.dart';
+import 'package:prayer/logic/realtime_database.dart';
 import 'package:prayer/logic/validators.dart';
+import 'package:prayer/model/prayer.dart';
 import 'package:prayer/widget/form_field.dart';
 import 'package:prayer/widget/main_button.dart';
 
@@ -15,6 +19,7 @@ class _CreatePageState extends State<CreatePage> {
   final Api api = Api();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
+  final FirestoreDatabase rd = FirestoreDatabase();
 
   TextEditingController textController = TextEditingController(text: '');
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
@@ -95,22 +100,13 @@ class _CreatePageState extends State<CreatePage> {
     );
   }
 
-  void success() {
+  void success() async {
+    print("success");
+    if (textController.text.isNullOrEmpty()) return;
+    print("success text is not empty");
+
+    var prayer = Prayer(authorId: "0", content: textController.text, follows: 0, followed: false, createdAt: DateTime.now());
+    await rd.addPrayer(prayer);
     Navigator.of(context).pushReplacementNamed("/main");
   }
-
-// void login() async {
-//   var _prayers;
-//   if (selectedUse == PrayerCardUse.SELECTED) {
-//     _prayers = await api.loadSelectedPrayers();
-//   } else if (selectedUse == PrayerCardUse.FEED) {
-//     _prayers = await api.loadPrayers();
-//   } else if (selectedUse == PrayerCardUse.OWN) {
-//     _prayers = await api.loadMyPrayers();
-//   }
-//
-//   setState(() {
-//     prayers = _prayers;
-//   });
-// }
 }

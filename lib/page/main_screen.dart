@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
+import 'package:prayer/logic/realtime_database.dart';
 import 'package:prayer/model/prayer.dart';
 import 'package:prayer/widget/prayer_card.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -13,14 +18,25 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final Api api = Api();
 
-  List<Prayer>? prayers;
   int selectedIndex = 1;
   PrayerCardUse selectedUse = PrayerCardUse.FEED;
+
+  final FirestoreDatabase rd = FirestoreDatabase();
+  late StreamSubscription onPrayer;
+  final BehaviorSubject<List<Prayer>> obsPrayers = new BehaviorSubject<List<Prayer>>();
+  final GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     loadData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    onPrayer.cancel();
+    obsPrayers.close();
+    super.dispose();
   }
 
   @override
@@ -36,7 +52,10 @@ class _MainPageState extends State<MainPage> {
             onTap: () => Navigator.of(context).pushNamed("/settings"),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(Icons.settings, color: Colors.white,),
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
             ),
           )
         ],
@@ -84,49 +103,79 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget content() {
-    if (prayers == null) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else if (prayers!.isEmpty) {
-      return Column(
-        children: [
-          Center(
-            child: Text(tr("no_prayers")),
-          ),
-        ],
-      );
-    } else {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => PrayerCard(prayer: prayers![index], use: selectedUse),
-              separatorBuilder: (context, index) => SizedBox(height: 16),
-              itemCount: prayers!.length,
+    return StreamBuilder<List<Prayer>>(
+      stream: obsPrayers,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        List<Prayer> prayers = snapshot.data!.where((element) {
+          if (selectedUse == PrayerCardUse.SELECTED) {
+            return element.followed;
+          } else if (selectedUse == PrayerCardUse.FEED) {
+            return true;
+          } else if (selectedUse == PrayerCardUse.OWN) {
+            return element.authorId == 0; // TODO add profile id to DC
+          }
+          return false;
+        }).toList();
+        if (prayers.isEmpty) {
+          return Column(
+            children: [
+              Center(
+                child: Text(tr("no_prayers")),
+              ),
+            ],
+          );
+        }
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: RefreshIndicator(
+            key: refreshKey,
+            onRefresh: () async => loadData(),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => PrayerCard(prayer: prayers[index], use: selectedUse),
+                  separatorBuilder: (context, index) => SizedBox(height: 16),
+                  itemCount: prayers.length,
+                ),
+              ),
             ),
           ),
-        ),
-      );
-    }
+        );
+      },
+    );
   }
 
   void loadData() async {
-    var _prayers;
-    if (selectedUse == PrayerCardUse.SELECTED) {
-      _prayers = await api.loadSelectedPrayers();
-    } else if (selectedUse == PrayerCardUse.FEED) {
-      _prayers = await api.loadPrayers();
-    } else if (selectedUse == PrayerCardUse.OWN) {
-      _prayers = await api.loadMyPrayers();
-    }
+    print("load data1");
+    await rd.initDb();
+    print("load data2");
 
-    setState(() {
-      prayers = _prayers;
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection("prayers").get();
+    print(snapshot);
+    print(snapshot.docs);
+    print(snapshot.docChanges);
+    print(snapshot.runtimeType);
+    print(snapshot.docs.runtimeType);
+    print(snapshot.docs.length);
+    print(snapshot.size);
+    print("load data5");
+    List<Prayer> _prayers = [];
+    snapshot.docs.forEach((element) {
+      print(element);
+      final Prayer prayer = Prayer.fromJson(element.data());
+      _prayers.add(prayer);
     });
+    _prayers.sort((Prayer a, Prayer b) => -a.createdAt.compareTo(b.createdAt));
+    obsPrayers.sink.add(_prayers);
+    print("load data6");
   }
 }
