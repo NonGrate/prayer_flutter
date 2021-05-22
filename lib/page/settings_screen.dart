@@ -2,9 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
-import 'package:prayer/logic/validators.dart';
-import 'package:prayer/styles/styles.dart';
-import 'package:prayer/widget/form_field.dart';
 import 'package:prayer/widget/main_button.dart';
 
 class SettingsPage extends StatefulWidget {

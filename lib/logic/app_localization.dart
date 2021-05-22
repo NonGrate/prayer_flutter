@@ -11,7 +11,7 @@ class AppLocalizations {
 
   // Helper method to keep the code in the widgets concise
   // Localizations are accessed using an InheritedWidget "of" syntax
-  static AppLocalizations of(BuildContext context) {
+  static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
@@ -19,7 +19,7 @@ class AppLocalizations {
   static const LocalizationsDelegate<AppLocalizations> delegate =
   _AppLocalizationsDelegate();
 
-  Map<String, String> _localizedStrings;
+  Map<String, String> _localizedStrings = {};
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
@@ -39,7 +39,7 @@ class AppLocalizations {
     if (!_localizedStrings.containsKey(key)) {
       return '${key}_tbd';
     }
-    return _localizedStrings[key];
+    return _localizedStrings[key] ?? '${key}_tbd';
   }
 }
 

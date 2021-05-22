@@ -5,18 +5,15 @@ class ButtonMain extends StatelessWidget {
   final String text;
   final bool loading;
   final VoidCallback tap;
-  final bool hasIcon;
-  final Widget icon;
+  final Widget? icon;
 
   ButtonMain({
-    Key key,
     // @required this.height,
-    @required this.text,
-    @required this.loading,
-    @required this.tap,
+    required this.text,
+    required this.loading,
+    required this.tap,
     this.icon,
-    this.hasIcon = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +29,11 @@ class ButtonMain extends StatelessWidget {
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              hasIcon
-                  ? Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: icon,
-                    )
-                  : Container(),
+              if (icon != null)
+                Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: icon,
+                ),
               Text(
                 text.toUpperCase(),
                 textAlign: TextAlign.center,

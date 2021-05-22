@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
-import 'package:prayer/model/Prayer.dart';
+import 'package:prayer/model/prayer.dart';
 import 'package:prayer/widget/prayer_card.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,7 +13,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final Api api = Api();
 
-  List<Prayer> prayers;
+  List<Prayer>? prayers;
   int selectedIndex = 1;
   PrayerCardUse selectedUse = PrayerCardUse.FEED;
 
@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
       return Center(
         child: CircularProgressIndicator(),
       );
-    } else if (prayers.isEmpty) {
+    } else if (prayers!.isEmpty) {
       return Column(
         children: [
           Center(
@@ -105,9 +105,9 @@ class _MainPageState extends State<MainPage> {
             child: ListView.separated(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => PrayerCard(prayer: prayers[index], use: selectedUse),
+              itemBuilder: (context, index) => PrayerCard(prayer: prayers![index], use: selectedUse),
               separatorBuilder: (context, index) => SizedBox(height: 16),
-              itemCount: prayers.length,
+              itemCount: prayers!.length,
             ),
           ),
         ),

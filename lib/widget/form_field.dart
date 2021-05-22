@@ -3,7 +3,7 @@ import 'package:prayer/styles/styles.dart';
 
 class AppFormField extends StatefulWidget {
   final TextEditingController controller;
-  final String Function(String) validator;
+  final String? Function(String?) validator;
   final TextCapitalization textCapitalization;
   final TextInputType keyboardType;
   final AutovalidateMode autovalidateMode;
@@ -18,21 +18,20 @@ class AppFormField extends StatefulWidget {
   final bool smallLabel;
 
   AppFormField({
-    Key key,
-    @required this.controller,
-    @required this.validator,
-    @required this.textCapitalization,
-    @required this.keyboardType,
-    @required this.autovalidateMode,
+    required this.controller,
+    required this.validator,
+    required this.textCapitalization,
+    required this.keyboardType,
+    required this.autovalidateMode,
     // @required this.labelText,
-    @required this.maxLines,
+    required this.maxLines,
     this.hasSuffixIcon = false,
     this.isPassword = false,
     this.showChangeButton = false,
     this.showTooltip = false,
     this.readOnly = false,
     this.smallLabel = false,
-  }) : super(key: key);
+  });
 
   @override
   _AppFormFieldState createState() => _AppFormFieldState();
@@ -160,6 +159,4 @@ class _AppFormFieldState extends State<AppFormField> {
       ),
     );
   }
-
-  Color labelColor() {}
 }

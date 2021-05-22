@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prayer/model/Prayer.dart';
+import 'package:prayer/model/prayer.dart';
 
 class PrayerCard extends StatelessWidget {
   final Prayer prayer;
   final PrayerCardUse use;
 
-  const PrayerCard({Key key, this.prayer, this.use}) : super(key: key);
+  const PrayerCard({required this.prayer, required this.use});
 
   @override
   Widget build(BuildContext context) {

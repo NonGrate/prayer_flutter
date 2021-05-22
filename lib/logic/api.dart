@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:prayer/model/Prayer.dart';
+import 'package:prayer/model/prayer.dart';
 
 const bool LOCAL = true;
 const String HOST = "localhost://";
@@ -52,9 +52,9 @@ class Api {
 }
 
 class NetworkApi {
-  Future<dynamic> request({String url, Function callback}) async {
+  Future<dynamic> request({required String url}) async {
     print("GET request url: $url");
-    final response = await http.get(url);
+    final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       print("$url response:");
@@ -66,9 +66,9 @@ class NetworkApi {
     }
   }
 
-  Future<dynamic> requestPost({String url, Map<String, String> args, Function callback}) async {
+  Future<dynamic> requestPost({required String url, required Map<String, String> args}) async {
     print("POST request url: $url");
-    final response = await http.post(url, body: args, headers: {});
+    final response = await http.post(Uri.parse(url), body: args, headers: {});
 
     if (response.statusCode == 200) {
       print("$url response:");
@@ -82,7 +82,7 @@ class NetworkApi {
 }
 
 class LocalApi {
-  Future<dynamic> request({String url, Function callback}) async {
+  Future<dynamic> request({required String url}) async {
     print("GET request url: $url");
     final response = await rootBundle.loadString("$url.json");
 

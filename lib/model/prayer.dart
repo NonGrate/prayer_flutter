@@ -3,7 +3,7 @@ class Prayer {
   final String content;
   final int follows;
 
-  Prayer({this.authorId, this.content, this.follows});
+  Prayer({required this.authorId, required this.content, required this.follows});
 
   factory Prayer.fromJson(Map<String, dynamic> json) {
     return Prayer(

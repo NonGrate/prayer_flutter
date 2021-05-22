@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
 import 'package:prayer/logic/validators.dart';
-import 'package:prayer/styles/styles.dart';
 import 'package:prayer/widget/form_field.dart';
 import 'package:prayer/widget/main_button.dart';
 
@@ -74,9 +73,9 @@ class _CreatePageState extends State<CreatePage> {
                         DropdownMenuItem<String>(child: Text("English"), value: "English",),
                         DropdownMenuItem<String>(child: Text("Русский"), value: "Русский",),
                       ],
-                      onChanged: (value) {
+                      onChanged: (String? value) {
                         setState(() {
-                          selectedLanguage = value;
+                          selectedLanguage = value!; // called when you select a real dd item
                         });
                       },
                     ),
