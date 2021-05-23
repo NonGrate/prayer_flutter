@@ -101,9 +101,7 @@ class _CreatePageState extends State<CreatePage> {
   }
 
   void success() async {
-    print("success");
     if (textController.text.isNullOrEmpty()) return;
-    print("success text is not empty");
 
     var prayer = Prayer(authorId: "0", content: textController.text, follows: 0, followed: false, createdAt: DateTime.now());
     await rd.addPrayer(prayer);

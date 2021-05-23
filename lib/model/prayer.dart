@@ -19,11 +19,6 @@ class Prayer {
   });
 
   factory Prayer.fromJson(Map<String, dynamic> json) {
-    print("from json");
-    print(json["created_at"].runtimeType);
-    print(json["created_at"].toString());
-    print(DateTime.parse(json["created_at"].toString()));
-    print("=============");
     return Prayer(
       authorId: json["author_id"],
       content: json["content"],

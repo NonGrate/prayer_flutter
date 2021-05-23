@@ -155,27 +155,15 @@ class _MainPageState extends State<MainPage> {
   }
 
   void loadData() async {
-    print("load data1");
     await rd.initDb();
-    print("load data2");
 
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection("prayers").get();
-    print(snapshot);
-    print(snapshot.docs);
-    print(snapshot.docChanges);
-    print(snapshot.runtimeType);
-    print(snapshot.docs.runtimeType);
-    print(snapshot.docs.length);
-    print(snapshot.size);
-    print("load data5");
     List<Prayer> _prayers = [];
     snapshot.docs.forEach((element) {
-      print(element);
       final Prayer prayer = Prayer.fromJson(element.data());
       _prayers.add(prayer);
     });
     _prayers.sort((Prayer a, Prayer b) => -a.createdAt.compareTo(b.createdAt));
     obsPrayers.sink.add(_prayers);
-    print("load data6");
   }
 }
