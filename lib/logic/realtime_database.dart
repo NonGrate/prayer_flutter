@@ -7,23 +7,17 @@ class FirestoreDatabase {
   factory FirestoreDatabase() => instance;
   static final FirestoreDatabase instance = FirestoreDatabase._internal();
 
-  late FirebaseApp app;
   late FirebaseFirestore firestore;
-  bool done = false;
 
-  FirestoreDatabase._internal();
-
-  Future<void> initDb() async {
-    if (!done) {
-      app = await Firebase.initializeApp();
-      firestore = FirebaseFirestore.instanceFor(app: app);
-      done = true;
-    } else {
-      print("already inited");
-    }
+  FirestoreDatabase._internal() {
+    firestore = FirebaseFirestore.instanceFor(app: Firebase.app());
   }
 
   Future<void> addPrayer(Prayer prayer) async {
     await firestore.collection('prayers').add(prayer.toJson());
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> get() async {
+    return await firestore.collection('prayers').get();
   }
 }

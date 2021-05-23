@@ -155,9 +155,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void loadData() async {
-    await rd.initDb();
-
-    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection("prayers").get();
+    QuerySnapshot<Map<String, dynamic>> snapshot = await rd.get();
     List<Prayer> _prayers = [];
     snapshot.docs.forEach((element) {
       final Prayer prayer = Prayer.fromJson(element.data());

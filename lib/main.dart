@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prayer/page/create_screen.dart';
 import 'package:prayer/page/login_screen.dart';
@@ -10,6 +11,7 @@ import 'package:prayer/page/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp();
 
   runApp(
     EasyLocalization(
