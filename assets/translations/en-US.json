@@ -17,5 +17,15 @@
 
   "create_prayer": "Create a prayer",
   "what_to_pray_about": "What to pray about?",
-  "select_language": "Language:"
+  "select_language": "Language:",
+
+  "weak_password": "Your password is not strong enough",
+  "wrong_password": "Wrong password was entered",
+  "email_already_in_use": "This email is already in use",
+  "user_not_found": "User with current credentials was not found",
+  "unknown_error": "Some unknown error occurred",
+  "required_field": "This field is required",
+  "wrong_email_format": "The format of the given email is wrong",
+  "password_short": "Password should be 8 or more characters long",
+  "wrong_password_format": "Please have at least 1 capital, 1 small letter and 1 number"
 }

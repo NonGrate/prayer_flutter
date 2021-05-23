@@ -1,14 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
+import 'package:prayer/logic/auth_manager.dart';
 import 'package:prayer/logic/extensions.dart';
 import 'package:prayer/logic/realtime_database.dart';
 import 'package:prayer/logic/validators.dart';
 import 'package:prayer/model/prayer.dart';
 import 'package:prayer/widget/form_field.dart';
 import 'package:prayer/widget/main_button.dart';
+import 'package:uuid/uuid.dart';
 
 class CreatePage extends StatefulWidget {
   @override
@@ -75,8 +78,14 @@ class _CreatePageState extends State<CreatePage> {
                     DropdownButton(
                       value: selectedLanguage,
                       items: [
-                        DropdownMenuItem<String>(child: Text("English"), value: "English",),
-                        DropdownMenuItem<String>(child: Text("Русский"), value: "Русский",),
+                        DropdownMenuItem<String>(
+                          child: Text("English"),
+                          value: "English",
+                        ),
+                        DropdownMenuItem<String>(
+                          child: Text("Русский"),
+                          value: "Русский",
+                        ),
                       ],
                       onChanged: (String? value) {
                         setState(() {
@@ -103,7 +112,18 @@ class _CreatePageState extends State<CreatePage> {
   void success() async {
     if (textController.text.isNullOrEmpty()) return;
 
-    var prayer = Prayer(authorId: "0", content: textController.text, follows: 0, followed: false, createdAt: DateTime.now());
+    User? user = AuthManager.instance.getUser();
+
+    if (user == null) return;
+
+    var prayer = Prayer(
+      id: Uuid().v4(),
+      authorId: user.uid,
+      content: textController.text,
+      follows: [],
+      followed: false,
+      createdAt: DateTime.now(),
+    );
     await rd.addPrayer(prayer);
     Navigator.of(context).pushReplacementNamed("/main");
   }

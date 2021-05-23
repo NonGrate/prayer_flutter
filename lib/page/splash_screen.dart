@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prayer/logic/auth_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -36,7 +37,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void success() {
-    Navigator.of(context).pushReplacementNamed("/login");
+    if (AuthManager.instance.getUser() == null) {
+      Navigator.of(context).pushReplacementNamed("/login");
+    } else {
+      Navigator.of(context).pushReplacementNamed("/main");
+    }
   }
 
 // void login() async {

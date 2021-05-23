@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prayer/logic/auth_manager.dart';
+import 'package:prayer/logic/realtime_database.dart';
 import 'package:prayer/model/prayer.dart';
 
 class PrayerCard extends StatelessWidget {
   final Prayer prayer;
   final PrayerCardUse use;
+  final FirestoreDatabase rd = FirestoreDatabase();
 
-  const PrayerCard({required this.prayer, required this.use});
+  PrayerCard({required this.prayer, required this.use});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class PrayerCard extends StatelessWidget {
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "${prayer.follows} follows you!",
+                      "${prayer.follows.length} follows you!",
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   )
@@ -36,11 +39,15 @@ class PrayerCard extends StatelessWidget {
                     ? Row(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              if (!prayer.follows.contains(AuthManager.instance.getUser()?.uid)) {
+                                rd.followPrayer(prayer);
+                              }
+                            },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "✓ Pray for them",
+                                !prayer.follows.contains(AuthManager.instance.getUser()?.uid) ? "✓ Pray for them" : "✓ It's in your pray list",
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                               ),
                             ),
@@ -61,7 +68,7 @@ class PrayerCard extends StatelessWidget {
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "${prayer.follows} follows",
+                          "${prayer.follows.length} follows",
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                         ),
                       ),

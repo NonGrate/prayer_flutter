@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prayer/logic/api.dart';
+import 'package:prayer/logic/auth_manager.dart';
 import 'package:prayer/logic/realtime_database.dart';
 import 'package:prayer/model/prayer.dart';
 import 'package:prayer/widget/prayer_card.dart';
@@ -113,22 +114,19 @@ class _MainPageState extends State<MainPage> {
         }
 
         List<Prayer> prayers = snapshot.data!.where((element) {
+          print(element);
           if (selectedUse == PrayerCardUse.SELECTED) {
             return element.followed;
           } else if (selectedUse == PrayerCardUse.FEED) {
-            return true;
+            return element.authorId != AuthManager.instance.getUser()?.uid;
           } else if (selectedUse == PrayerCardUse.OWN) {
-            return element.authorId == 0; // TODO add profile id to DC
+            return element.authorId == AuthManager.instance.getUser()?.uid;
           }
           return false;
         }).toList();
         if (prayers.isEmpty) {
-          return Column(
-            children: [
-              Center(
-                child: Text(tr("no_prayers")),
-              ),
-            ],
+          return Center(
+            child: Text(tr("no_prayers"), style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),),
           );
         }
         return Padding(

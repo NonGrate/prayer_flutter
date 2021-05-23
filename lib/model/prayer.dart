@@ -1,16 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prayer/logic/auth_manager.dart';
 import 'package:uuid/uuid.dart';
 
 class Prayer {
-  final Uuid id;
+  final String id;
   final String authorId;
   final String content;
-  final int follows;
   final DateTime createdAt;
+  final List<String> follows;
   final bool followed;
 
   Prayer({
-    this.id = const Uuid(),
+    required this.id,
     required this.authorId,
     required this.content,
     required this.follows,
@@ -19,27 +19,29 @@ class Prayer {
   });
 
   factory Prayer.fromJson(Map<String, dynamic> json) {
+    List<String> follows = (json["follows"] as List<dynamic>).map((e) => e.toString()).toList();
     return Prayer(
+      id: json["id"],
       authorId: json["author_id"],
       content: json["content"],
-      follows: json["follows"],
+      follows: follows,
       createdAt: DateTime.parse(json["created_at"].toString()),
-      followed: false,
+      followed: follows.contains(AuthManager.instance.getUser()?.uid ?? ""),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      "id": this.id,
       "author_id": this.authorId,
       "content": this.content,
       "follows": this.follows,
       "created_at": this.createdAt.toString(),
-      "followed": followed,
     };
   }
 
   @override
   String toString() {
-    return 'Prayer{authorId: $authorId, content: $content, follows: $follows, followed: $followed, createdAt: $createdAt}';
+    return 'Prayer{id: $id, authorId: $authorId, content: $content, follows: $follows, followed: $followed, createdAt: $createdAt}';
   }
 }
